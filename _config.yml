@@ -1,0 +1,39 @@
+# visit https://github.com/mojombo/jekyll/wiki/Configuration for more settings
+
+paginate: 10 # pagination based on number of posts
+paginate_path: "page:num"
+exclude: ["README.md"] # files to exclude
+highlighter: pygments
+markdown: kramdown
+disqus: dbyll
+google_analytics: dbyll
+title: Monburan
+
+defaults:
+  -
+    scope:
+      path: "" # empty string for all files
+    values:
+      title: Monburan
+
+description: Stylish Jekyll Theme
+author:
+  name: Monburan  
+  email: mengbulang@live.com
+  github: monburan
+  twitter: GMengbulang012
+  weibo: 2652462994
+  bio: 好奇|爱折腾
+  email_md5: 726351295ec82e145928582f595aa3aa
+
+rss_path: feed.xml
+categories_path: categories.html
+tags_path: tags.html
+
+# set it as url of an image
+sidebar_background_image: http://o8lgx56x1.bkt.clouddn.com/webwxgeticon.jpg
+
+BASE_PATH:
+
+gems:
+  - jekyll-paginate
