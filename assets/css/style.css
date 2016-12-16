@@ -142,6 +142,8 @@ article.home h4 a:hover {
 .author .author-image {
   float: left;
   margin-right: 20px;
+  height: 100px;
+  width: 100px;
 }
 
 footer {
@@ -188,4 +190,3 @@ footer {
 ul.dropdown-menu>li>a>i.fa {
     width: 1.3em;
 }
-
