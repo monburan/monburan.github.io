@@ -24,7 +24,8 @@ author:
   twitter: GMengbulang012
   weibo: 2652462994
   bio: 好奇|爱折腾
-  email_md5: 726351295ec82e145928582f595aa3aa
+  image: http://o8lgx56x1.bkt.clouddn.com/webwxgeticon.jpg
+  # email_md5: 726351295ec82e145928582f595aa3aa
 
 rss_path: feed.xml
 categories_path: categories.html
