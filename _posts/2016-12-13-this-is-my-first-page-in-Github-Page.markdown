@@ -6,4 +6,6 @@ tags: [Github Page, Jekyll]
 fullview: true
 comments: true
 ---
-折腾来折腾去的我终于折腾到头了，借着之前的主机到期了，我也来试试Github Page
+折腾来折腾去的我觉得终于折腾到头了，借着阿里云的主机到期了。
+数据也不要了，我也来试试Github Page。
+
