@@ -20,7 +20,7 @@ clone下来尝试运行了一下，发现没成功，重启了一下，依旧不
 
 修改参考：<http://jingyan.baidu.com/article/f3ad7d0ff8731609c3345b3b.html>
 
-在～目录上创建一个名为sublime_imfix.c的文件
+在<code>~</code>目录上创建一个名为sublime_imfix.c的文件
 
 然后将下面的代码写入文件
 
