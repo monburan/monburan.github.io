@@ -7,5 +7,10 @@ fullview: true
 comments: true
 ---
 折腾来折腾去的我觉得终于折腾到头了，借着阿里云的主机到期了。
-数据也不要了，我也来试试Github Page。
+
+之前写的笔记数据也不要了【任性。。。
+
+so,我也来试试Github Page。
+
+Hello,Github Page.
 
