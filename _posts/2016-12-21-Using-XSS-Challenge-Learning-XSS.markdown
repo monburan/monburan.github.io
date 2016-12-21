@@ -15,7 +15,7 @@ comments: true
 尝试输入<code>A""B</code>闭合双引号，查看页面输出。 
 ![pic1-2](http://o8lgx56x1.bkt.clouddn.com/blog/img/xss-challenges-1-2.png)
 
-再在上面的代码中间尝试插入<code>&lt;script&gt;alert(1)&lt;/script&gt;</code>就弹窗了。
+再在上面的代码中间尝试插入<pre><code>&lt;script&gt;alert(1)&lt;/script&gt;</code></pre>就弹窗了。
 
 这个时候先不急着过关，看看还有没有什么姿势达到相同的效果。
 
