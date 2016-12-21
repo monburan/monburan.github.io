@@ -3,7 +3,7 @@ layout: post
 title: 利用XSS平台学习XSS之XSS Challenge
 categories: [学姿势]
 tags: [Xss, XSS Challenge]
-fullview: true
+fullview: false
 comments: true
 ---
 我觉得我自己对XSS的理解还是有些不够，毕竟挖这块的东西经验太少，资料倒是看了不少。但是啊。。。并么有什么卵用。。。总结起来还是要练习啊，在不搞站的情况下一些挑战平台给我提供了良好的练习环境，就让我先从XSS Challenge开始吧。
