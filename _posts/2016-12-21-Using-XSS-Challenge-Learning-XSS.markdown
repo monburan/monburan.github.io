@@ -10,12 +10,10 @@ comments: true
 
 ## 第一关
 既然是第一关，先看看是什么套路，输入<>看看什么效果，看到一对双引号包围了<>。
+[test](http://o8lgx56x1.bkt.clouddn.com/blog/img/xss-challenges-1-1.png)
 尝试输入A""B闭合双引号，查看页面输出。 
 
-再在上面的代码中间尝试插入
-{% highlight javascript %}
-<script>alert(1)<\script>
-{% endhighlight %}
+再在上面的代码中间尝试插入<code><script>alert(1)</script></code>
 弹窗了。这个时候先不急着过关，看看还有没有什么姿势达到相同的效果。
 尝试<code>A"<img src=xss onerror=alert(1)></code>
 
