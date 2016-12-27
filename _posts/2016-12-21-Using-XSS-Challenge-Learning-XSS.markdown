@@ -8,6 +8,7 @@ comments: true
 ---
 我觉得我自己对XSS的理解还是有些不够，毕竟挖这块的东西经验太少，资料倒是看了不少。但是啊。。。并么有什么卵用。。。总结起来还是要练习啊，在不搞站的情况下一些挑战平台给我提供了良好的练习环境，就让我先从XSS Challenge开始吧。
 
+
 ## 第一关
 既然是第一关，先看看是什么套路，输入<code><></code>看看什么效果，看到一对双引号包围了<code><></code>。
 
@@ -33,6 +34,7 @@ comments: true
 
 ![pic1-6](http://o8lgx56x1.bkt.clouddn.com/blog/img/xss-challenges-1-6.png)
 
+
 ##第二关
 
 和前面类似，不过这次闭合的是双引号和尖括号，输入<code>"><"</code>
@@ -47,6 +49,7 @@ comments: true
 
 ![pic2-4](http://o8lgx56x1.bkt.clouddn.com/blog/img/xss-challenges-2-4.png)
 
+
 ##第三关
 
 这关卡了好久，一直以为是在输入框哪里被转义了，一直尝试这在输入框这里下手。后来想起来抓包，发现第二个参数并没有进行过滤。
@@ -59,6 +62,7 @@ comments: true
 
 ![pic3-4](http://o8lgx56x1.bkt.clouddn.com/blog/img/xss-challenges-3-4.png)
 
+
 ##第四关
 
 和上面的很像，只不过这里的第三个参数并不会直接显示在页面中，而是存在一个<code>value</code>中。
@@ -68,6 +72,7 @@ comments: true
 这里没有过滤，直接将测试代码存到了value里。于是需要做的就是闭合引号和标签，在后面加入xss代码就可以了。
 
 ！[pic4-2](http://o8lgx56x1.bkt.clouddn.com/blog/img/xss-challenges-4-2.png)
+
 
 ##第五关
 
