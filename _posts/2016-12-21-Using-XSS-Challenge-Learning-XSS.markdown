@@ -68,7 +68,7 @@ comments: true
 
 这里没有过滤，直接将测试代码存到了value里。于是需要做的就是闭合引号和标签，在后面加入xss代码就可以了。
 
-！[pic4-2](http://o8lgx56x1.bkt.clouddn.com/blog/img/xss-challenges-4-2.png)
+![pic4-2](http://o8lgx56x1.bkt.clouddn.com/blog/img/xss-challenges-4-2.png)
 
 
 ## 第五关 ##
