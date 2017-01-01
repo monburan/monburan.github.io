@@ -32,7 +32,7 @@ categories_path: categories.html
 tags_path: tags.html
 
 # set it as url of an image
-sidebar_background_image: http://o8lgx56x1.bkt.clouddn.com/webwxgeticon.jpg
+sidebar_background_image:
 
 BASE_PATH:
 
