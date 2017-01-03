@@ -6,9 +6,7 @@ tags: [WordPress,SQL Injection]
 fullview: false
 comments: true
 ---
-发现这个问题的经过是这样的，原本想着上午逛逛exploit db 看看有没有什么漏洞可以自己搭环境可以搞一搞试试的，逛了一圈发现WordPress的404 Redirection Manager 1.0插件有个注入，提交的时间已经过去很多天了。本着观摩一下poc的心态点开看了看，发现WordPress的插件库里依旧还有这款插件，于是乎下载下来，用docker搭建了一个环境。【docker真好用...
-
-下载下来才发现，这个插件已经更新到了1.1版本，就是在这个漏洞提交后不几天更新的，心一下子就凉了一半，心想着这么快就修了。但是好奇心驱使我还是把环境搭好了，用1.0版本的poc尝试了一下，发现依旧有用，虚惊一场，总之先搞了再说。
+插件更新至1.0版本更新至1.1版本，发现注入问题依旧，自己挖了一下。目前官方已经移除了该插件，下面是我保存到本地的[漏洞样本](http://o8lgx56x1.bkt.clouddn.com/sample/code/404-redirection-manager.zip)
 
 首先说下搭建的测试环境:
 
