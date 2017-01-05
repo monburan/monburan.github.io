@@ -62,13 +62,32 @@ Joomla! and many more
 
 重点来了，<code>validateAddress()</code>函数是用来检查输入的邮件地址是不是合法的Email地址的。这次漏洞利用主要是突破这个函数中的限制。
 
-![pic1-6](http://o8lgx56x1.bkt.clouddn.com/blog/img/phpmailer-1-6.png)
+![pic1-6](http://o8lgx56x1.bkt.clouddn.com/blog/img/phpmBailer-1-6.png)
+
 ![pic1-7](http://o8lgx56x1.bkt.clouddn.com/blog/img/phpmailer-1-7.png)
 
 首先说一下条件最苛刻但利用起来比较简单的方法，根据上面的代码可以看到，如果在<code>$patternselect</code>为<code>'noregex'</code>的时候，直接跳过了正则表达式的检测，条件：没有安装pcre，且PHP版本小于5.2.0。
 
 ![pic1-8](http://o8lgx56x1.bkt.clouddn.com/blog/img/phpmailer-1-8.png)
+
 ![pic1-9](http://o8lgx56x1.bkt.clouddn.com/blog/img/phpmailer-1-9.png)
 
 从这里来看，这个漏洞利用起来比较鸡肋，但是正则表达式能绕过，这个漏洞就没有那么鸡肋了。
+
+这里根据[phithon大神的总结](https://www.leavesongs.com/PENETRATION/how-to-analyze-long-regex.html)自己又复现了一遍：
+
+![pic1-10]()
+
+![pic1-11]()
+
+首先看最容易理解的第二组：<code>(?>(?>(?>\x0D\x0A)?[\t ])+|(?>[\t ]*\x0D\x0A)?[\t ]+)</code>
+
+这里主要是针对<code> </code>，<code>\t</code>以及回车<code>\x0D</code>换行<code>\x0A</code>的匹配。
+
+接下来是第三组：<code>(\((?>(?2)(?>[\x01-\x08\x0B\x0C\x0E-\'*-\[\]-\x7F]|\\\[\x00-\x7F]|(?3)))*(?2)\))</code>
+
+第三组中套用了第二组，并对第三组进行递归，也就是说在第三组过滤特殊字符同时也引入了问题
+
+
+
 
