@@ -6,8 +6,7 @@ tags: [memo]
 fullview: true
 comments: true
 ---
-
-一个简单的备忘录，找东西用
+一个简单的备忘录，记录一些常用的软件安装方法以及一些不需要记住的东西。
 
 # Ubuntu install Metasploit
 
@@ -17,10 +16,20 @@ chmod 755 msfinstall && \
 
 # Ubuntu install exploit-db
 
-frist step:get exploit-db in github
+Frist step: get exploit-db in github
+
 <pre><code>
 git clone https://github.com/offensive-security/exploit-database.git /opt/exploit-database
 </code></pre>
 
-next:link 
+Next:link 
+
 <code>ln -sf /opt/exploit-database/searchsploit /usr/local/bin/searchsploit</code>
+
+# Ubuntu 显示天气
+
+    indicator-china-weather
+
+# Ubuntu 屏幕防蓝光
+
+    redshift
