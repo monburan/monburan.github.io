@@ -3,11 +3,10 @@ layout: post
 title: 备忘录
 categories: [普通日志]
 tags: [memo]
-fullview: true
+fullview: false
 comments: true
 ---
-一个简单的备忘录，记录一些常用的软件安装方法以及一些不需要记住的东西。
-
+一个简单的备忘录，记录一些常用的Ubuntu软件安装方法以及一些不需要记住的东西。
 
 # Ubuntu非常用软件
 
