@@ -8,13 +8,16 @@ comments: true
 ---
 一个简单的备忘录，记录一些常用的软件安装方法以及一些不需要记住的东西。
 
-# Ubuntu install Metasploit
+
+# Ubuntu非常用软件
+
+## Ubuntu install Metasploit
 
 <pre><code>curl https://raw.githubusercontent.com/rapid7/metasploit-omnibus/master/config/templates/metasploit-framework-wrappers/msfupdate.erb > msfinstall && \
 chmod 755 msfinstall && \
 ./msfinstall</code></pre>
 
-# Ubuntu install exploit-db
+## Ubuntu install exploit-db
 
 Frist step: get exploit-db in github
 
@@ -23,12 +26,27 @@ Frist step: get exploit-db in github
 
 Next:link 
 
-<code>ln -sf /opt/exploit-database/searchsploit /usr/local/bin/searchsploit</code>
+    ln -sf /opt/exploit-database/searchsploit /usr/local/bin/searchsploit
 
-# Ubuntu 显示天气
+## Ubuntu 显示天气
 
     indicator-china-weather
 
-# Ubuntu 屏幕防蓝光
+## Ubuntu 屏幕防蓝光
 
     redshift
+
+## Ubuntu wps 中文字体解决
+
+下载字体包解压
+
+<code>cp</code>所有字体文件到<code>/usr/share/fonts</code>路径下
+
+生成字体索引信息
+
+    sudo mkfontscale 
+    sudo mkfontdir
+
+更新字体缓存
+
+    sudo fc-cache
