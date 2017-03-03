@@ -18,8 +18,7 @@ chmod 755 msfinstall && \
 
 Frist step: get exploit-db in github
 
-<pre><code>
-git clone https://github.com/offensive-security/exploit-database.git /opt/exploit-database
+<pre><code>git clone https://github.com/offensive-security/exploit-database.git /opt/exploit-database
 </code></pre>
 
 Next:link 
