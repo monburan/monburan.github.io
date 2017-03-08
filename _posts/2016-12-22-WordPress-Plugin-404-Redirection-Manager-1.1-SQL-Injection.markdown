@@ -14,11 +14,11 @@ comments: true
 
 先做准备工作，在docker上部署的这个WordPress默认的链接形式是这样的：
 
-<code>http://monburan-wordpress-test.daoapp.io/2016/12/22/sample-post/</code>
+    http://monburan-wordpress-test.daoapp.io/2016/12/22/sample-post/
 
 这里要将WordPress的链接设置成默认的，像这样：
 
-<code>http://monburan-wordpress-test.daoapp.io/?p=123</code>
+    http://monburan-wordpress-test.daoapp.io/?p=123
 
 首先看下前面提到1.0版本的poc：
 
@@ -47,7 +47,7 @@ $wpdb是WordPress 数据库访问抽象对象，get_row()是WordPress中一个�
 
 拿其中一个问题来说来说，这里的SQL语句是这样的：
 
-<pre><code>select * from $table_name where enabled=1 and cat='link' and blog='" . get_current_blog_id() . "' and regex<>'' and $permalink_regex_options order by LENGTH(regex) desc </code></pre>
+     select * from $table_name where enabled=1 and cat='link' and blog='" . get_current_blog_id() . "' and regex<>'' and $permalink_regex_options order by LENGTH(regex) desc
 
 <code>get_current_blog_id()</code>是WordPress中检索ID值的函数，注入的问题明显不是从这里引入的，后面还有一个变量<code>$permalink_regex_options</code>，所以继续跟进。
 
@@ -204,6 +204,3 @@ if __name__ == '__main__':
 <<<<<<< HEAD
 </code>
 </pre>
-=======
-</code></pre>
->>>>>>> master
