@@ -153,9 +153,9 @@ PHPCGI解析漏洞，这个漏洞影响了IIS7.0以及Nginx两个中间件。绕
 
 PNG:
 
-![magic_number-1](http://o8lgx56x1.bkt.clouddn.com//blog/img/magic-number-1.png)
+![magic_number-1](http://o8lgx56x1.bkt.clouddn.com//blog/img/magic-number-2.png)
 
 JPG:
 
-![magic_number-2](http://o8lgx56x1.bkt.clouddn.com//blog/img/magic-number-2.png)
+![magic_number-2](http://o8lgx56x1.bkt.clouddn.com//blog/img/magic-number-1.png)
 
