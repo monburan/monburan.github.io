@@ -1,7 +1,7 @@
 ---
 layout: post
 title: 使用burpsuitel拦截响应
-categories: [Burpsuite, Configuration]
+categories: [Configuration]
 tags: [Burpsuite]
 fullview: false
 comments: true
