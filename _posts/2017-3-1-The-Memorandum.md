@@ -1,7 +1,7 @@
 ---
 layout: post
 title: 备忘录
-categories: [普通日志]
+categories: [Daily, Configuration]
 tags: [memo]
 fullview: false
 comments: true

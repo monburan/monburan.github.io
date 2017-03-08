@@ -1,8 +1,8 @@
 ---
 layout: post
 title: 利用XSS Challenge学习XSS
-categories: [学姿势]
-tags: [Xss, XSS Challenge]
+categories: [XSS]
+tags: [XSS, XSS Challenge]
 fullview: false
 comments: true
 ---

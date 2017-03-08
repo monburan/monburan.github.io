@@ -1,7 +1,7 @@
 ---
 layout: post
 title: PHPMailer远程代码执行
-categories: [漏洞分析]
+categories: [Vulnerability analysis ]
 tags: [PHPMailer,Remote Code Execution]
 fullview: false
 comments: true
@@ -62,7 +62,7 @@ Joomla! and many more
 
 重点来了，<code>validateAddress()</code>函数是用来检查输入的邮件地址是不是合法的Email地址的。这次漏洞利用主要是突破这个函数中的限制。
 
-![pic1-6](http://o8lgx56x1.bkt.clouddn.com/blog/img/phpmBailer-1-6.png)
+![pic1-6](http://o8lgx56x1.bkt.clouddn.com/blog/img/phpmailer-1-6.png)
 
 ![pic1-7](http://o8lgx56x1.bkt.clouddn.com/blog/img/phpmailer-1-7.png)
 
