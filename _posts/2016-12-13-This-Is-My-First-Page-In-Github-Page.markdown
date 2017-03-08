@@ -3,6 +3,7 @@ layout: post
 title: 我的第一篇Github Page博客
 categories: [Daily]
 tags: [Github-Page, Jekyll]
+description: "这是我的第一篇Jekyll博客"
 fullview: true
 comments: true
 ---
