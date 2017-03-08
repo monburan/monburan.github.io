@@ -2,7 +2,7 @@
 layout: post
 title: Ubuntu上使sublime text 3 支持中文
 categories: [Configuration]
-tags: [Ubuntu, Sublime Text 3]
+tags: [Ubuntu, Sublime-Text-3]
 fullview: false
 comments: true
 ---

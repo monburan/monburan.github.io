@@ -2,7 +2,7 @@
 layout: post
 title: 利用XSS Challenge学习XSS
 categories: [XSS]
-tags: [XSS, XSS Challenge]
+tags: [XSS, XSS-Challenge]
 fullview: false
 comments: true
 ---

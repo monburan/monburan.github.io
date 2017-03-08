@@ -1,8 +1,8 @@
 ---
 layout: post
 title: WordPress插件:404 Redirection Manager 1.1 SQL注入
-categories: [Vulnerability analysis]
-tags: [WordPress,SQL Injection]
+categories: [Vulnerability-analysis]
+tags: [WordPress,SQL-Injection]
 fullview: false
 comments: true
 ---

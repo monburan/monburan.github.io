@@ -1,8 +1,8 @@
 ---
 layout: post
 title: PHPMailer远程代码执行
-categories: [Vulnerability analysis ]
-tags: [PHPMailer,Remote Code Execution]
+categories: [Vulnerability-analysis ]
+tags: [PHPMailer,Remote-Code-Execution]
 fullview: false
 comments: true
 ---

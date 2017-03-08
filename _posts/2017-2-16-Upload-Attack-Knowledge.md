@@ -1,8 +1,8 @@
 ---
 layout: post
 title: 上传漏洞知识总结
-categories: [Vulnerability analysis ]
-tags: [Upload Vulnerability]
+categories: [Vulnerability-analysis ]
+tags: [Upload-Vulnerability]
 fullview: false
 comments: true
 ---

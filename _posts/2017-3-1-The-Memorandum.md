@@ -1,8 +1,8 @@
 ---
 layout: post
-title: 备忘录
+title: 一些软件安装的备忘录
 categories: [Daily, Configuration]
-tags: [memo]
+tags: [Memo, Ubuntu]
 fullview: false
 comments: true
 ---
