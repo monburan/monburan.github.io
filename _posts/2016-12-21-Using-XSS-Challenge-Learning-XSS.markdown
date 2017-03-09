@@ -3,11 +3,10 @@ layout: post
 title: 利用XSS Challenge学习XSS
 categories: [XSS]
 tags: [XSS, XSS-Challenge]
+description: "我觉得我自己对XSS的理解还是有些不够，毕竟挖这块的东西经验太少，资料倒是看了不少。但是啊。。。并么有什么卵用。。。总结起来还是要练习啊，在不搞站的情况下一些挑战平台给我提供了良好的练习环境，就让我先从XSS Challenge开始吧。"
 fullview: false
 comments: true
 ---
-我觉得我自己对XSS的理解还是有些不够，毕竟挖这块的东西经验太少，资料倒是看了不少。但是啊。。。并么有什么卵用。。。总结起来还是要练习啊，在不搞站的情况下一些挑战平台给我提供了良好的练习环境，就让我先从XSS Challenge开始吧。
-
 ## 第一关 ##
 既然是第一关，先看看是什么套路，输入<code><></code>看看什么效果，看到一对双引号包围了<code><></code>。
 

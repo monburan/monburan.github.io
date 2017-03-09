@@ -3,20 +3,17 @@ layout: post
 title: Ubuntu上使sublime text 3 支持中文
 categories: [Configuration]
 tags: [Ubuntu, Sublime-Text-3]
+description: "安装了sublime之后一直没尝试输入中文，今天突然想用sublime写点东西，然后发现系统上的fcitx(搜狗输入法)没法用。在网上发现了两种修改办法，逐一尝试了下，于是记录一下。"
 fullview: false
 comments: true
 ---
-安装了sublime之后一直没尝试输入中文，今天突然想用sublime写点东西，然后发现系统上的fcitx(搜狗输入法)没法用。
-
-在网上发现了两种修改办法，逐一尝试了下，于是记录一下。
-
-## 第一种方法，网上大神写的脚本。
+# 第一种方法，网上大神写的脚本。
 
 地址在这里: <https://github.com/lyfeyaj/sublime-text-imfix>
 
 clone下来尝试运行了一下，发现没成功，重启了一下，依旧不好使。第一种方法pass。
 
-## 第二种方法，手动修改。
+# 第二种方法，手动修改。
 
 修改参考：<http://jingyan.baidu.com/article/f3ad7d0ff8731609c3345b3b.html>
 

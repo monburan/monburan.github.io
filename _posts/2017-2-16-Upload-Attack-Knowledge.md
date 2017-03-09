@@ -3,12 +3,11 @@ layout: post
 title: 上传漏洞知识总结
 categories: [Vulnerability-analysis ]
 tags: [Upload-Vulnerability]
+description: "这两天换电脑，收拾了自己之前写的一些笔记，忽然发现自己之前没有好好保存之前的笔记数据真的是个大错误。
+这里是自己整理的一些关于上传漏洞的知识点。"
 fullview: false
 comments: true
 ---
-这两天换电脑，收拾了自己之前写的一些笔记，忽然发现自己之前没有好好保存之前的笔记数据真的是个大错误。
-这里是自己整理的一些关于上传漏洞的知识点。
-
 Update 2017.3.3:其实重新整理这个就是因为一直想做一个有关与上传漏洞的测试平台，就像SQLiLAbs一样的，不过进度缓慢。。。
 
 # 上传漏洞 

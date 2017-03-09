@@ -3,10 +3,11 @@ layout: post
 title: WordPress插件:404 Redirection Manager 1.1 SQL注入
 categories: [Vulnerability-analysis]
 tags: [WordPress,SQL-Injection]
+description: "该插件更新至1.0版本更新至1.1版本，发现注入问题依旧，自己挖了一下，总结下。"
 fullview: false
 comments: true
 ---
-插件更新至1.0版本更新至1.1版本，发现注入问题依旧，自己挖了一下。目前官方已经移除了该插件，下面是我保存到本地的[漏洞样本](http://o8lgx56x1.bkt.clouddn.com/sample/code/404-redirection-manager.zip)
+目前官方已经移除了该插件，下面是我保存到本地的[漏洞样本](http://o8lgx56x1.bkt.clouddn.com/sample/code/404-redirection-manager.zip)
 
 首先说下搭建的测试环境:
 

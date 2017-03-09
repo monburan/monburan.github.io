@@ -3,11 +3,10 @@ layout: post
 title: 一些软件安装的备忘录
 categories: [Configuration]
 tags: [Memo, Ubuntu]
+description: "一个简单的备忘录，记录一些常用的Ubuntu软件安装方法以及一些不需要记住的东西。"
 fullview: false
 comments: true
 ---
-一个简单的备忘录，记录一些常用的Ubuntu软件安装方法以及一些不需要记住的东西。
-
 # Ubuntu非常用软件
 
 ## Ubuntu install WhatWeb(fix bug)

@@ -3,12 +3,11 @@ layout: post
 title: PHPMailer远程代码执行
 categories: [Vulnerability-analysis ]
 tags: [PHPMailer,Remote-Code-Execution]
+description: "前两天在微博看到了PHPMailer的远程代码执行，国内一票大神都已近分析过了，以学习为目的自己尝试总结一下。"
 fullview: false
 comments: true
 ---
-前两天在微博看到了这个，国内一票大神都已近分析过了，以学习为目的自己尝试总结一下。
-
-## 首先介绍一下主角PHPMailer ##
+# 首先介绍一下主角PHPMailer #
 
 PHPMailer continues to be the world's most popular transport class, with an
 estimated 9 million users worldwide. Downloads continue at a significant
@@ -24,7 +23,7 @@ Joomla! and many more
 
 用户量这么大的一个邮件类出现问题也算是一个重磅炸弹了。
 
-## 出现漏洞的位置 ##
+# 出现漏洞的位置 #
 
 这里看到的代码是5.2.16版本的。PHPMailer使用的是PHP自带的<code>mail()</code>函数。这次出出现问题的源头是<code>mail()</code>函数的第五个参数<code>$params</code>未经过滤。
 

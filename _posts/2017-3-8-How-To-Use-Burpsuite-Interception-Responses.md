@@ -3,11 +3,10 @@ layout: post
 title: 使用burpsuitel拦截响应
 categories: [Configuration]
 tags: [Burpsuite]
+description: "以前用Burpsuite都是用来拦截请求包，昨天面试，面试官问我是否知道Burpsuite如何拦截响应，瞬间懵逼，今天总结下如何拦截响应。"
 fullview: false
 comments: true
 ---
-以前用Burpsuite都是用来拦截请求包，昨天面试，面试官问我是否知道Burpsuite如何拦截响应，瞬间懵逼，今天总结下如何拦截响应。
-
 首先打开<code>Burpsuite -> Proxy -> Options</code>来到代理的设置界面。
 
 ![pic-1](http://o8lgx56x1.bkt.clouddn.com//blog/img/burp-options.png)
