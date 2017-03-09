@@ -34,7 +34,7 @@ tags_path: tags.html
 # set it as url of an image
 sidebar_background_image:
 
-BASE_PATH: http://momburan.cn
+BASE_PATH: http://monburan.cn
 
 gems:
   - jekyll-paginate
