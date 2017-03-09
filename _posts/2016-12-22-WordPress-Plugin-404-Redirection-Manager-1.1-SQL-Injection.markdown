@@ -52,17 +52,17 @@ $wpdb是WordPress 数据库访问抽象对象，get_row()是WordPress中一个�
 
 <code>get_current_blog_id()</code>是WordPress中检索ID值的函数，注入的问题明显不是从这里引入的，后面还有一个变量<code>$permalink_regex_options</code>，所以继续跟进。
 
-![sqli-code-2](http://o8lgx56x1.bkt.clouddn.com//blog/img/wp-404-plugin-sqlicode-2.png)
+![sqli-code-2](http://o8lgx56x1.bkt.clouddn.com/blog/img/wp-404-plugin-sqlicode-2.png)
 
 顺着<code>$permalink_regex_options</code>找到了<code>$permalink</code>和<code>$permalink_alternative</code> 两个变量，这两个变量的的值指向了两个函数
 
-![sqli-code-3](http://o8lgx56x1.bkt.clouddn.com//blog/img/wp-404-plugin-sqlicode-3.png)
+![sqli-code-3](http://o8lgx56x1.bkt.clouddn.com/blog/img/wp-404-plugin-sqlicode-3.png)
 
-![sqli-code-4](http://o8lgx56x1.bkt.clouddn.com//blog/img/wp-404-plugin-sqlicode-4.png)
+![sqli-code-4](http://o8lgx56x1.bkt.clouddn.com/blog/img/wp-404-plugin-sqlicode-4.png)
 
 可以看到在<code>get_permalink</code>中在对url进行编码后，并没有做任何对url中参数的过滤，而是继续将url中的参数部分提取出来传入一个sanitize()的函数中，一路追下去可以看到这个sanitize()函数中也没有对注入有关的参数进行过滤。
 
-![sqli-code-5](http://o8lgx56x1.bkt.clouddn.com//blog/img/wp-404-plugin-sqlicode-5.png)
+![sqli-code-5](http://o8lgx56x1.bkt.clouddn.com/blog/img/wp-404-plugin-sqlicode-5.png)
 
 以上，代码中的问题看完，现在整理出完整在数据库中执行的语句：
 
@@ -74,7 +74,7 @@ $wpdb是WordPress 数据库访问抽象对象，get_row()是WordPress中一个�
 
 从数据库上跑一下，成功了，时间也没问题。
 
-![sqli-sql](http://o8lgx56x1.bkt.clouddn.com//blog/img/wp-404-plugin-sqlicode-sql.png)
+![sqli-sql](http://o8lgx56x1.bkt.clouddn.com/blog/img/wp-404-plugin-sqlicode-sql.png)
 
 从前面报错的请求来看，这里每次访问都会使插件执行两次查询，所以在利用的时候要选一个合适的时间。
 

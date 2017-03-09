@@ -9,18 +9,18 @@ comments: true
 ---
 首先打开<code>Burpsuite -> Proxy -> Options</code>来到代理的设置界面。
 
-![pic-1](http://o8lgx56x1.bkt.clouddn.com//blog/img/burp-options.png)
+![pic-1](http://o8lgx56x1.bkt.clouddn.com/blog/img/burp-options.png)
 
 找到<code>Intercept Server Responses</code>,勾选<code>Intercept responses based on the following rules:</code>。
 
-![pic-2](http://o8lgx56x1.bkt.clouddn.com//blog/img/burp-options-responses.png)
+![pic-2](http://o8lgx56x1.bkt.clouddn.com/blog/img/burp-options-responses.png)
 
 其他几个规则视实际情况需要勾选，下面看下效果：
 
 请求：
 
-![pic-3](http://o8lgx56x1.bkt.clouddn.com//blog/img/burp-request.png)
+![pic-3](http://o8lgx56x1.bkt.clouddn.com/blog/img/burp-request.png)
 
 响应：
 
-![pic-4](http://o8lgx56x1.bkt.clouddn.com//blog/img/burp-response.png)
+![pic-4](http://o8lgx56x1.bkt.clouddn.com/blog/img/burp-response.png)
