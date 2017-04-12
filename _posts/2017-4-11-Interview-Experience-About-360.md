@@ -10,7 +10,11 @@ comments: true
 
 # 有关漏洞
 
-最近关注的漏洞讲下分析过程：s2-045,046漏洞分析，PHPmailer漏洞分析（sendmail()函数具体的用法）。
+最近关注的漏洞，讲下分析过程：
+
+1. s2-045,046漏洞分析。
+2. PHPmailer漏洞分析（sendmail()函数具体的用法）。
+3. WordPress REST API有没有分析过，问题出现在哪里？
 
 自己分析过的漏洞，intval()和is_numeric()有什么区别？123abc123 abc123带入上述两个函数会返回什么结果。
 
