@@ -16,7 +16,7 @@ comments: true
     /usr/bin/whatweb: /usr/lib/ruby/vendor_ruby/rchardet/universaldetector.rb:39: invalid multibyte escape: /[\x80-\xFF]/ (SyntaxError)
 
 运行环境:
-    
+
     Ubuntu 16.04
     ruby 2.3.1p112 (2016-04-26) [x86_64-linux-gnu]
 
@@ -34,7 +34,6 @@ Bug fix 启动正常，但是仍然报错
     /usr/share/whatweb/lib/tld.rb:93: warning: key "2nd_level_registration" is duplicated and overwritten on line 93
     /usr/share/whatweb/lib/tld.rb:95: warning: key "2nd_level_registration" is duplicated and overwritten on line 95
 
-
 ## Ubuntu install Metasploit
 
 <pre><code>curl https://raw.githubusercontent.com/rapid7/metasploit-omnibus/master/config/templates/metasploit-framework-wrappers/msfupdate.erb > msfinstall && \
@@ -48,7 +47,7 @@ Frist step: get exploit-db in github
 <pre><code>git clone https://github.com/offensive-security/exploit-database.git /opt/exploit-database
 </code></pre>
 
-Next:link 
+Next:link
 
     ln -sf /opt/exploit-database/searchsploit /usr/local/bin/searchsploit
 
@@ -68,9 +67,22 @@ Next:link
 
 生成字体索引信息
 
-    sudo mkfontscale 
+    sudo mkfontscale
     sudo mkfontdir
 
 更新字体缓存
 
     sudo fc-cache
+
+## Ubuntu Terminator icon fix
+
+默认Ubuntu 使用 Unity 桌面，Terminator使用Gonme驱动所以修改后才能使图标固定在启动栏
+
+    gsettings set org.gnome.desktop.default-applications.terminal exec 'terminator'
+
+## Git Proxy Setting
+
+设置 Git 的代理
+
+    git config --global http.proxy http://127.0.0.1:1080
+    git config --global https.proxy http://127.0.0.1:1080
