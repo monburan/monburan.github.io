@@ -38,10 +38,15 @@ comments: true
 
     gsettings set org.gnome.desktop.default-applications.terminal exec 'terminator'
 
-## Git 代理设置
+## Git 全局代理设置
 
     git config --global http.proxy http://127.0.0.1:1080
     git config --global https.proxy http://127.0.0.1:1080
+
+如果使用 socks5 则使用如下配置：
+
+    git config --global http.proxy socks5://127.0.0.1:1080
+    git config --global https.proxy socks5：//127.0.0.1:1080
 
 ## 设置系统目录为英文
 
