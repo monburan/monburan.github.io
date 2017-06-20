@@ -48,6 +48,15 @@ comments: true
     git config --global http.proxy socks5://127.0.0.1:1080
     git config --global https.proxy socks5：//127.0.0.1:1080
 
+如果不想使用全局代理则使用如下配置取消代理：
+
+    git config --global --unset http.proxy
+    git config --global --unset https.proxy
+
+进阶：如果使用下列方法代理github速度感人
+
+    git config --global http.https://github.com.proxy socks5://127.0.0.1:1080
+
 ## 设置系统目录为英文
 
 默认的中文目录非常不方便，可以只设置系统目录为英文
@@ -58,7 +67,7 @@ comments: true
 
 ## 安装 Google Chrome
 
-    wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add - 
+    wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
     sudo sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list'
     sudo apt update
     sudo apt install google-chrome-xxxxx
