@@ -76,8 +76,10 @@ comments: true
 
 首先会查看提交的请求中是否存在 `<>` 如果没有则将传入的数据转化为字符串。如果其中存在 `<>` 则将flag生成在一个随机命名的文件中。
 
-![](http://o8lgx56x1.bkt.clouddn.com/blog/img/ctfphp7.png)
-
 说实话还是自己菜，`implode()` 这个函数需要传入数组，如果传入的是字符串将报错，变量 `$s` 自然也就没有值。
 
+![](http://o8lgx56x1.bkt.clouddn.com/blog/img/ctfphp7.png)
+
 想要通过Post请求的形式传入数组可以使用 `data[0]=123&data[1]=<>` 的形式传入数组，这样的话在执行 `implode()` 函数的时候就不会使 `&s` 为空，成功绕过这段逻辑拿到flag。
+
+![](http://o8lgx56x1.bkt.clouddn.com/blog/img/ctfphp8.png)
