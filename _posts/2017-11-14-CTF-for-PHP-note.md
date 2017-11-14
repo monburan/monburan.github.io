@@ -2,7 +2,7 @@
 layout: post
 title: CTF for PHP note
 categories: [CTF]
-tags: [Struts2,]
+tags: [CTF, writeup]
 description: "CTF遇到的PHP题"
 fullview: false
 comments: true
