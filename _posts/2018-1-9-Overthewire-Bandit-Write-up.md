@@ -1,14 +1,16 @@
 ---
 layout: post
-title: Overthewire Bandit Write up(0-20)
+title: Overthewire Bandit Write up(ALL)
 categories: [wargame]
 tags: [wargame, writeup]
-description: "做題學知識(2018.1.9)"
+description: "做題學知識(2018.5.23)"
 fullview: false
 comments: true
 ---
 # 0
 The password for the next level is stored in a file called readme located in the home directory. Use this password to log into bandit1 using SSH. Whenever you find a password for a level, use SSH (on port 2220) to log into that level and continue the game.
+
+直接cat :)
 
     cat readme 
 
@@ -34,6 +36,8 @@ The password for the next level is stored in a hidden file in the inhere directo
     cat inhere/.hidden
 
 [//]:pIwrPrtPN36QITSp3EQaw936yaFoFgAB
+
+[!]上面的三道題主要考文件访问，可以参考这篇文章学习[Linux 下如何处理包含空格和特殊字符的文件名](https://linux.cn/article-5777-1.html)
 
 # 4
 The password for the next level is stored in the only human-readable file in the inhere directory. Tip: if your terminal is messed up, try the “reset” command.
@@ -224,11 +228,12 @@ The credentials for the next level can be retrieved by submitting the password o
     echo cluFn7wTiGryunymYOu4RcffSxQluehd|openssl s_client -quiet -connect localhost:31790 > sshkey.private
     # use vi remove unuseful
     ssh -i sshkey.private bandit17@localhost
-    # if you need input password you need this -> https://stackoverflow.com/questions/9270734/ssh-permissions-are-too-open-error
+    # if you need input password you need this ->  https://stackoverflow.com/questions/9270734/ssh-permissions-are-too-open-error
     chmod 400 sshkey.private
     ssh -i sshkey.private bandit17@localhost
 
 # 17
+
 There are 2 files in the homedirectory: passwords.old and passwords.new. The password for the next level is in passwords.new and is the only line that has been changed between passwords.old and passwords.new
 
 NOTE: if you have solved this level and see ‘Byebye!’ when trying to log into bandit18, this is related to the next level, bandit19
@@ -236,19 +241,25 @@ NOTE: if you have solved this level and see ‘Byebye!’ when trying to log int
     diff passwords.new passwords.old
 
 [//]: kfBf3eYk5BPBRzwjqutbbfE887SVc5Yd
+
 # 18
+
 The password for the next level is stored in a file readme in the homedirectory. Unfortunately, someone has modified .bashrc to log you out when you log in with SSH.
 
     ssh bandit18@bandit.labs.overthewire.org -p 2220 cat readme
 
 [//]: IueksS7Ubh8G3DCwVzrTd8rAVOwq3M5x
+
 # 19
+
 To gain access to the next level, you should use the setuid binary in the homedirectory. Execute it without arguments to find out how to use it. The password for this level can be found in the usual place (/etc/bandit_pass), after you have used the setuid binary.
 
      ./bandit20-do cat /etc/bandit_pass/bandit20
     
 [//]: GbKksEFF4yrVs6il55v6gwY5aVje5f0j
+
 # 20
+
 There is a setuid binary in the homedirectory that does the following: it makes a connection to localhost on the port you specify as a commandline argument. It then reads a line of text from the connection and compares it to the password in the previous level (bandit20). If the password is correct, it will transmit the password for the next level (bandit21).
 
 NOTE: Changes to the infrastructure made this level more difficult. You will need to figure out a way to launch multiple commands in the same Docker instance.
@@ -260,3 +271,128 @@ NOTE 2: Try connecting to your own network daemon to see if it works as you thin
     ./suconnect 10010
 
 [//]: gE269g2h3mw3pwgrj0Ha9Uoqen1c9DGr
+
+# 21
+
+A program is running automatically at regular intervals from cron, the time-based job scheduler. Look in /etc/cron.d/ for the configuration and see what command is being executed.
+
+    cd /etc/cron.d/
+    ls
+    cat cronjob_bandit22
+    # @reboot bandit22 /usr/bin/cronjob_bandit22.sh &> /dev/null
+    # * * * * * bandit22 /usr/bin/cronjob_bandit22.sh &> /dev/null
+    cat /usr/bin/cronjob_bandit22.sh
+    # #!/bin/bash
+    # chmod 644 /tmp/t7O6lds9S0RqQh9aMcz6ShpAoZKF7fgv
+    # cat /etc/bandit_pass/bandit22 > /tmp/t7O6lds9S0RqQh9aMcz6ShpAoZKF7fgv
+    cat /tmp/t7O6lds9S0RqQh9aMcz6ShpAoZKF7fgv
+
+关于cron命令参考[linux(centos)中的cron计划任务配置方法](http://blog.163.com/weiwenjuan_bj/blog/static/140350336201343072313966/)
+
+[//]: Yk7owGAcWjwMVRwrTesJEwB7WVOiILLI
+
+# 22
+
+A program is running automatically at regular intervals from cron, the time-based job scheduler. Look in /etc/cron.d/ for the configuration and see what command is being executed.
+
+NOTE: Looking at shell scripts written by other people is a very useful skill. The script for this level is intentionally made easy to read. If you are having problems understanding what it does, try executing it to see the debug information it prints.
+
+    cat /etc/cron.d/cronjob_bandit23
+    # @reboot bandit23 /usr/bin/cronjob_bandit23.sh  &> /dev/null
+    # * * * * * bandit23 /usr/bin/cronjob_bandit23.sh  &> /dev/null
+    cat /usr/bin/cronjob_bandit23.sh
+    # #!/bin/bash
+
+    # myname=$(whoami)
+    # mytarget=$(echo I am user $myname | md5sum | cut -d ' ' -f 1)
+
+    # echo "Copying passwordfile /etc/bandit_pass/$myname to /tmp/$mytarget"
+
+    # cat /etc/bandit_pass/$myname > /tmp/$mytarget
+
+    echo I am user bandit23 | md5sum | cut -d ' ' -f 1
+    # get some hash
+    cat /tmp/(hash you get)
+
+[//]:jc1udXuA1tiHqjIsL8yaapX5XIAI6i0n
+
+# 23
+
+A program is running automatically at regular intervals from cron, the time-based job scheduler. Look in /etc/cron.d/ for the configuration and see what command is being executed.
+
+NOTE: This level requires you to create your own first shell-script. This is a very big step and you should be proud of yourself when you beat this level!
+
+NOTE 2: Keep in mind that your shell script is removed once executed, so you may want to keep a copy around…
+
+    cat /etc/cron.d/cronjob_bandit24
+    # @reboot bandit24 /usr/bin/cronjob_bandit24.sh &> /dev/null
+    # * * * * * bandit24 /usr/bin/cronjob_bandit24.sh &> /dev/null
+    
+    # #!/bin/bash
+
+    # myname=$(whoami)
+
+    # cd /var/spool/$myname
+    # echo "Executing and deleting all scripts in /var/spool/$myname:"
+    # for i in * .*;
+    # do
+    # if [ "$i" != "." -a "$i" != ".." ];
+    #     then
+    #         echo "Handling $i"
+    #         timeout -s 9 60 ./$i
+    #         rm -f ./$i
+    #     fi
+    # done
+    vi monburan.sh
+    # #!/bin/sh
+    # cat /etc/bandit_pass/bandit24 >> /tmp/monburan24/bandit24
+    chmod 777 monburan.sh
+    cp monburan.sh /var/spool/bandit24/
+    # hold on a second
+    ls 
+    # bandit24 monburan.sh
+    # key in bandit24
+
+[\\]:UoMYTrfrBFHyQXmg6gzctqAwOmw1IohZ
+
+# 24
+
+A daemon is listening on port 30002 and will give you the password for bandit25 if given the password for bandit24 and a secret numeric 4-digit pincode. There is no way to retrieve the pincode except by going through all of the 10000 combinations, called brute-forcing.
+
+    # try nc
+    nc localhost 30002
+    # get this
+    # I am the pincode checker for user bandit25. Please enter the password for user bandit24 and the secret pincode on a single line, separated by a space.
+
+Shell not skilled , Choose Python , Ideas from [here](https://github.com/Cathon/mySolutions/blob/master/overthewire/Bandit/Level_24.md) 
+
+    import subprocess
+    with open('./pincode','w') as f:
+    for pincode in ["UoMYTrfrBFHyQXmg6gzctqAwOmw1IohZ" + ' ' + '%04d'%i + '\n' for i in range(1,10000)]:
+        f.write(pincode)
+    result = subprocess.Popen('cat pincode|nc localhost 30002', shell=True, stdout=subprocess.PIPE).stdout.read()
+    print result
+
+[\\]:uNG9O58gUE7snukf3bvZ0rxhtnjzSGzG
+
+# 25 
+
+Logging in to bandit26 from bandit25 should be fairly easy… The shell for user bandit26 is not /bin/bash, but something else. Find out what it is, how it works and how to break out of it.
+
+    cat /etc/shells
+    # /usr/bin/showtext
+    cat /usr/bin/showtext
+    # #!/bin/sh
+
+    # export TERM=linux
+
+    # more ~/text.txt
+    # exit 0
+
+In `/home/bandit25` I get this `bandit26.sshkey`, Try to use this login bandit26 fail.
+
+Final, I get this in Google: [https://github.com/Cathon/mySolutions/blob/master/overthewire/Bandit/Level_25.md](https://github.com/Cathon/mySolutions/blob/master/overthewire/Bandit/Level_25.md)
+
+Amazing!!!
+
+[\\]:5czgV9L3Xx8JPOyRbXh6lQbmIOWvPT6Z
